@@ -134,7 +134,12 @@ static NSString *const kTwimlParamTo = @"to";
 }
 
 - (IBAction)speakerSwitchToggled:(UISwitch *)sender {
-    [self toggleAudioRoute:sender.on];
+//    [self toggleAudioRoute:sender.on];
+    if (sender.on) {
+        TwilioVoice.audioEnabled = YES;
+    } else {
+        TwilioVoice.audioEnabled = NO;
+    }
 }
 
 #pragma mark - UITextFieldDelegate
