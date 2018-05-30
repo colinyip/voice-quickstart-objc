@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @import AVFoundation;
 @import PushKit;
@@ -37,6 +38,7 @@ static NSString *const kTwimlParamTo = @"to";
 @property (weak, nonatomic) IBOutlet UIView *callControlView;
 @property (weak, nonatomic) IBOutlet UISwitch *muteSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *speakerSwitch;
+@property (nonatomic, strong) AVAudioPlayer* player;
 
 @end
 
@@ -55,6 +57,15 @@ static NSString *const kTwimlParamTo = @"to";
     self.outgoingValue.delegate = self;
 
     [self configureCallKit];
+    [self loadMusic];
+}
+
+- (void)loadMusic {
+    NSString *path = [NSString stringWithFormat:@"%@/hold-ukulele-lower.wav", [[NSBundle mainBundle] resourcePath]];
+    NSURL *soundUrl = [NSURL fileURLWithPath:path];
+    NSError* error = nil;
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
+    NSLog(@"initialize player result: %@", error);
 }
 
 - (void)configureCallKit {
@@ -91,14 +102,12 @@ static NSString *const kTwimlParamTo = @"to";
 }
 
 - (IBAction)placeCall:(id)sender {
-    if (self.call && self.call.state == TVOCallStateConnected) {
-        [self.call disconnect];
-        [self toggleUIState:NO showCallControl:NO];
+    if (self.player.isPlaying) {
+        NSLog(@"### stopping music");
+        [self.player stop];
     } else {
-        NSUUID *uuid = [NSUUID UUID];
-        NSString *handle = @"Voice Bot";
-        
-        [self performStartCallActionWithUUID:uuid handle:handle];
+        NSLog(@"### plying music");
+        [self.player play];
     }
 }
 
