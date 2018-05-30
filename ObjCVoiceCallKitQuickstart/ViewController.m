@@ -113,7 +113,7 @@ static NSString *const kTwimlParamTo = @"to";
 
 - (void)toggleUIState:(BOOL)isEnabled showCallControl:(BOOL)showCallControl {
     self.placeCallButton.enabled = isEnabled;
-    if (showCallControl) {
+    if (YES) {
         self.callControlView.hidden = NO;
         self.muteSwitch.on = NO;
         self.speakerSwitch.on = YES;
@@ -123,7 +123,14 @@ static NSString *const kTwimlParamTo = @"to";
 }
 
 - (IBAction)muteSwitchToggled:(UISwitch *)sender {
-    self.call.muted = sender.on;
+//    self.call.muted = sender.on;
+    if (sender.on) {
+        [TwilioVoice configureAudioSession];
+    } else {
+        NSError* error = nil;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                               error:&error];
+    }
 }
 
 - (IBAction)speakerSwitchToggled:(UISwitch *)sender {
@@ -355,6 +362,7 @@ withCompletionHandler:(void (^)(void))completion {
 - (void)provider:(CXProvider *)provider didDeactivateAudioSession:(AVAudioSession *)audioSession {
     NSLog(@"provider:didDeactivateAudioSession:");
     TwilioVoice.audioEnabled = NO;
+    
 }
 
 - (void)provider:(CXProvider *)provider timedOutPerformingAction:(CXAction *)action {
