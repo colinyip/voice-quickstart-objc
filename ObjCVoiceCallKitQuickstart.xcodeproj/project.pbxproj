@@ -14,9 +14,11 @@
 		2459FDD61D83664300917CA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2459FDD51D83664300917CA9 /* Assets.xcassets */; };
 		2459FDD91D83664300917CA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2459FDD71D83664300917CA9 /* LaunchScreen.storyboard */; };
 		24BA34291D87431000B0B4F7 /* TwilioLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 24BA34281D87431000B0B4F7 /* TwilioLogo.png */; };
+		9A2789563FBA228D4247D25A /* libPods-TwilioVoice-ObjCVoiceCallKitQuickstart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0635F95110FD1D53F247CEAF /* libPods-TwilioVoice-ObjCVoiceCallKitQuickstart.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0635F95110FD1D53F247CEAF /* libPods-TwilioVoice-ObjCVoiceCallKitQuickstart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TwilioVoice-ObjCVoiceCallKitQuickstart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2459FDC61D83664300917CA9 /* ObjCVoiceCallKitQuickstart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjCVoiceCallKitQuickstart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2459FDCA1D83664300917CA9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2459FDCC1D83664300917CA9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,6 +31,8 @@
 		2459FDDA1D83664300917CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24BA34241D87269500B0B4F7 /* ObjCVoiceCallKitQuickstart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ObjCVoiceCallKitQuickstart.entitlements; sourceTree = "<group>"; };
 		24BA34281D87431000B0B4F7 /* TwilioLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwilioLogo.png; sourceTree = "<group>"; };
+		3819BCA0CBCA4CDEE9B009F6 /* Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.release.xcconfig"; sourceTree = "<group>"; };
+		E7204F7AE5EC369CD5CF078A /* Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2789563FBA228D4247D25A /* libPods-TwilioVoice-ObjCVoiceCallKitQuickstart.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +53,7 @@
 				2459FDC81D83664300917CA9 /* ObjCVoiceCallKitQuickstart */,
 				2459FDC71D83664300917CA9 /* Products */,
 				5FF12A4D246637936B670360 /* Frameworks */,
+				CF962262A07E9EE399BFA7D5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,8 +94,18 @@
 		5FF12A4D246637936B670360 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0635F95110FD1D53F247CEAF /* libPods-TwilioVoice-ObjCVoiceCallKitQuickstart.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF962262A07E9EE399BFA7D5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E7204F7AE5EC369CD5CF078A /* Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.debug.xcconfig */,
+				3819BCA0CBCA4CDEE9B009F6 /* Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,9 +115,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2459FDDD1D83664300917CA9 /* Build configuration list for PBXNativeTarget "ObjCVoiceCallKitQuickstart" */;
 			buildPhases = (
+				E622F2BB9001F56254D40490 /* [CP] Check Pods Manifest.lock */,
 				2459FDC21D83664300917CA9 /* Sources */,
 				2459FDC31D83664300917CA9 /* Frameworks */,
 				2459FDC41D83664300917CA9 /* Resources */,
+				D713550A4213FF788EC3F02C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -123,7 +141,8 @@
 				TargetAttributes = {
 					2459FDC51D83664300917CA9 = {
 						CreatedOnToolsVersion = 8.0;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 9XXUU76TAL;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -166,6 +185,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D713550A4213FF788EC3F02C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart-frameworks.sh",
+				"${PODS_ROOT}/TwilioVoice/TwilioVoice.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVoice.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E622F2BB9001F56254D40490 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwilioVoice-ObjCVoiceCallKitQuickstart-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2459FDC21D83664300917CA9 /* Sources */ = {
@@ -292,27 +350,39 @@
 		};
 		2459FDDE1D83664300917CA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E7204F7AE5EC369CD5CF078A /* Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ObjCVoiceCallKitQuickstart/ObjCVoiceCallKitQuickstart.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9XXUU76TAL;
 				INFOPLIST_FILE = "$(SRCROOT)/ObjCVoiceCallKitQuickstart/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.twilio.ObjCVoiceCallKitQuickstart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spokelabs.mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "77a5ee08-704c-4d5d-85e9-9bb6ff299554";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.spokelabs.mobile";
 			};
 			name = Debug;
 		};
 		2459FDDF1D83664300917CA9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3819BCA0CBCA4CDEE9B009F6 /* Pods-TwilioVoice-ObjCVoiceCallKitQuickstart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ObjCVoiceCallKitQuickstart/ObjCVoiceCallKitQuickstart.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 9XXUU76TAL;
 				INFOPLIST_FILE = "$(SRCROOT)/ObjCVoiceCallKitQuickstart/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.twilio.ObjCVoiceCallKitQuickstart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spokelabs.mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "77a5ee08-704c-4d5d-85e9-9bb6ff299554";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.spokelabs.mobile";
 			};
 			name = Release;
 		};

@@ -12,7 +12,7 @@
 @import CallKit;
 @import TwilioVoice;
 
-static NSString *const kYourServerBaseURLString = <#URL TO YOUR ACCESS TOKEN SERVER#>;
+static NSString *const kYourServerBaseURLString = @"https://635c82e0.ngrok.io";
 // If your token server is written in PHP, kAccessTokenEndpoint needs .php extension at the end. For example : /accessToken.php
 static NSString *const kAccessTokenEndpoint = @"/accessToken";
 static NSString *const kIdentity = @"alice";

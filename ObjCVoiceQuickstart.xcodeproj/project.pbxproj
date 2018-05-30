@@ -17,6 +17,7 @@
 		8F1A927A1DF7E96700609990 /* disconnect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8F1A92771DF7E96700609990 /* disconnect.wav */; };
 		8F1A927B1DF7E96700609990 /* incoming.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8F1A92781DF7E96700609990 /* incoming.wav */; };
 		8F1A927C1DF7E96700609990 /* outgoing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8F1A92791DF7E96700609990 /* outgoing.wav */; };
+		9E1553EF82D3746740CA34F2 /* libPods-TwilioVoice-ObjCVoiceQuickstart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 358DBA7003209C5FB1744CD1 /* libPods-TwilioVoice-ObjCVoiceQuickstart.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +33,12 @@
 		2459FDDA1D83664300917CA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24BA34241D87269500B0B4F7 /* ObjCVoiceQuickstart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ObjCVoiceQuickstart.entitlements; sourceTree = "<group>"; };
 		24BA34281D87431000B0B4F7 /* TwilioLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwilioLogo.png; sourceTree = "<group>"; };
+		358DBA7003209C5FB1744CD1 /* libPods-TwilioVoice-ObjCVoiceQuickstart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TwilioVoice-ObjCVoiceQuickstart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F1A92771DF7E96700609990 /* disconnect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = disconnect.wav; sourceTree = "<group>"; };
 		8F1A92781DF7E96700609990 /* incoming.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incoming.wav; sourceTree = "<group>"; };
 		8F1A92791DF7E96700609990 /* outgoing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = outgoing.wav; sourceTree = "<group>"; };
+		C10339AA0A19C263A65A8B8C /* Pods-TwilioVoice-ObjCVoiceQuickstart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioVoice-ObjCVoiceQuickstart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceQuickstart/Pods-TwilioVoice-ObjCVoiceQuickstart.debug.xcconfig"; sourceTree = "<group>"; };
+		CC2D7424CEEBF745E95C4860 /* Pods-TwilioVoice-ObjCVoiceQuickstart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwilioVoice-ObjCVoiceQuickstart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceQuickstart/Pods-TwilioVoice-ObjCVoiceQuickstart.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,12 +46,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E1553EF82D3746740CA34F2 /* libPods-TwilioVoice-ObjCVoiceQuickstart.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2292E4C79241301B2C20B4F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C10339AA0A19C263A65A8B8C /* Pods-TwilioVoice-ObjCVoiceQuickstart.debug.xcconfig */,
+				CC2D7424CEEBF745E95C4860 /* Pods-TwilioVoice-ObjCVoiceQuickstart.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		2459FDBD1D83664300917CA9 = {
 			isa = PBXGroup;
 			children = (
@@ -55,6 +69,7 @@
 				8F1A92761DF7E96700609990 /* Ringtones */,
 				2459FDC71D83664300917CA9 /* Products */,
 				5FF12A4D246637936B670360 /* Frameworks */,
+				2292E4C79241301B2C20B4F3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +110,7 @@
 		5FF12A4D246637936B670360 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				358DBA7003209C5FB1744CD1 /* libPods-TwilioVoice-ObjCVoiceQuickstart.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,9 +132,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2459FDDD1D83664300917CA9 /* Build configuration list for PBXNativeTarget "ObjCVoiceQuickstart" */;
 			buildPhases = (
+				C667BB2D8A29872568F3BA38 /* [CP] Check Pods Manifest.lock */,
 				2459FDC21D83664300917CA9 /* Sources */,
 				2459FDC31D83664300917CA9 /* Frameworks */,
 				2459FDC41D83664300917CA9 /* Resources */,
+				B3FAA7E99CB643FE489BC004 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,6 +204,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B3FAA7E99CB643FE489BC004 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceQuickstart/Pods-TwilioVoice-ObjCVoiceQuickstart-frameworks.sh",
+				"${PODS_ROOT}/TwilioVoice/TwilioVoice.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVoice.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TwilioVoice-ObjCVoiceQuickstart/Pods-TwilioVoice-ObjCVoiceQuickstart-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C667BB2D8A29872568F3BA38 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TwilioVoice-ObjCVoiceQuickstart-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2459FDC21D83664300917CA9 /* Sources */ = {
@@ -312,6 +369,7 @@
 		};
 		2459FDDE1D83664300917CA9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C10339AA0A19C263A65A8B8C /* Pods-TwilioVoice-ObjCVoiceQuickstart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ObjCVoiceQuickstart/Info.plist;
@@ -324,6 +382,7 @@
 		};
 		2459FDDF1D83664300917CA9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC2D7424CEEBF745E95C4860 /* Pods-TwilioVoice-ObjCVoiceQuickstart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ObjCVoiceQuickstart/Info.plist;
