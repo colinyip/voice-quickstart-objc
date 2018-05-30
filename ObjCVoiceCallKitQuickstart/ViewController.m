@@ -6,13 +6,14 @@
 //
 
 #import "ViewController.h"
+#import <AVFoundation/AVFoundation.h>
 
 @import AVFoundation;
 @import PushKit;
 @import CallKit;
 @import TwilioVoice;
 
-static NSString *const kYourServerBaseURLString = <#URL TO YOUR ACCESS TOKEN SERVER#>;
+static NSString *const kYourServerBaseURLString = @"https://635c82e0.ngrok.io";
 // If your token server is written in PHP, kAccessTokenEndpoint needs .php extension at the end. For example : /accessToken.php
 static NSString *const kAccessTokenEndpoint = @"/accessToken";
 static NSString *const kIdentity = @"alice";
@@ -37,7 +38,8 @@ static NSString *const kTwimlParamTo = @"to";
 @property (weak, nonatomic) IBOutlet UIView *callControlView;
 @property (weak, nonatomic) IBOutlet UISwitch *muteSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *speakerSwitch;
-
+@property (nonatomic, strong) AVAudioPlayer* player;
+ 
 @end
 
 @implementation ViewController
@@ -55,6 +57,20 @@ static NSString *const kTwimlParamTo = @"to";
     self.outgoingValue.delegate = self;
 
     [self configureCallKit];
+}
+
+- (void)configureAudioSessionForPlayer {
+    NSString *path = [NSString stringWithFormat:@"%@/hold-ukulele-lower.wav", [[NSBundle mainBundle] resourcePath]];
+    NSURL *soundUrl = [NSURL fileURLWithPath:path];
+    NSError* error = nil;
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundUrl error:nil];
+    NSLog(@"initialize player result: %@", error);
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                           error:&error];
+}
+
+- (void)configureAudioSessionForCall {
+    [TwilioVoice configureAudioSession];
 }
 
 - (void)configureCallKit {
@@ -91,20 +107,28 @@ static NSString *const kTwimlParamTo = @"to";
 }
 
 - (IBAction)placeCall:(id)sender {
-    if (self.call && self.call.state == TVOCallStateConnected) {
-        [self.call disconnect];
-        [self toggleUIState:NO showCallControl:NO];
+    if (self.player.isPlaying) {
+        NSLog(@"### stopping music");
+        [self.player stop];
     } else {
-        NSUUID *uuid = [NSUUID UUID];
-        NSString *handle = @"Voice Bot";
-        
-        [self performStartCallActionWithUUID:uuid handle:handle];
+        NSLog(@"### plying music");
+        [self.player play];
     }
+
+//    if (self.call && self.call.state == TVOCallStateConnected) {
+//        [self.call disconnect];
+//        [self toggleUIState:NO showCallControl:NO];
+//    } else {
+//        NSUUID *uuid = [NSUUID UUID];
+//        NSString *handle = @"Voice Bot";
+//
+//        [self performStartCallActionWithUUID:uuid handle:handle];
+//    }
 }
 
 - (void)toggleUIState:(BOOL)isEnabled showCallControl:(BOOL)showCallControl {
     self.placeCallButton.enabled = isEnabled;
-    if (showCallControl) {
+    if (YES) {
         self.callControlView.hidden = NO;
         self.muteSwitch.on = NO;
         self.speakerSwitch.on = YES;
@@ -114,7 +138,13 @@ static NSString *const kTwimlParamTo = @"to";
 }
 
 - (IBAction)muteSwitchToggled:(UISwitch *)sender {
-    self.call.muted = sender.on;
+//    self.call.muted = sender.on;
+    if (sender.on) {
+        [self configureAudioSessionForCall];
+    } else {
+        [self configureAudioSessionForPlayer];
+    }
+
 }
 
 - (IBAction)speakerSwitchToggled:(UISwitch *)sender {
@@ -240,7 +270,6 @@ withCompletionHandler:(void (^)(void))completion {
 #pragma mark - TVOCallDelegate
 - (void)callDidConnect:(TVOCall *)call {
     NSLog(@"callDidConnect:");
-
     self.call = call;
     self.callKitCompletionCallback(YES);
     self.callKitCompletionCallback = nil;
@@ -340,6 +369,10 @@ withCompletionHandler:(void (^)(void))completion {
 
 - (void)provider:(CXProvider *)provider didActivateAudioSession:(AVAudioSession *)audioSession {
     NSLog(@"provider:didActivateAudioSession:");
+    if (self.player.isPlaying) {
+        NSLog(@"### Stopping music");
+        [self.player stop];
+    }
     TwilioVoice.audioEnabled = YES;
 }
 
@@ -378,15 +411,14 @@ withCompletionHandler:(void (^)(void))completion {
 
 - (void)provider:(CXProvider *)provider performAnswerCallAction:(CXAnswerCallAction *)action {
     NSLog(@"provider:performAnswerCallAction:");
-
     // RCP: Workaround from https://forums.developer.apple.com/message/169511 suggests configuring audio in the
     //      completion block of the `reportNewIncomingCallWithUUID:update:completion:` method instead of in
     //      `provider:performAnswerCallAction:` per the WWDC examples.
     // [[TwilioVoice sharedInstance] configureAudioSession];
 
     NSAssert([self.callInvite.uuid isEqual:action.callUUID], @"We only support one Invite at a time.");
-    
-    TwilioVoice.audioEnabled = NO;
+
+    [self.player play];
     [self performAnswerVoiceCallWithUUID:action.callUUID completion:^(BOOL success) {
         if (success) {
             [action fulfill];
@@ -394,8 +426,9 @@ withCompletionHandler:(void (^)(void))completion {
             [action fail];
         }
     }];
-    
-    [action fulfill];
+
+    // why do we fulfill it immediately?
+//    [action fulfill];
 }
 
 - (void)provider:(CXProvider *)provider performEndCallAction:(CXEndCallAction *)action {
@@ -465,8 +498,9 @@ withCompletionHandler:(void (^)(void))completion {
             NSLog(@"Incoming call successfully reported.");
 
             // RCP: Workaround per https://forums.developer.apple.com/message/169511
-            [TwilioVoice configureAudioSession];
-            [self toggleAudioRoute:YES];
+//            [TwilioVoice configureAudioSession];
+//            [self toggleAudioRoute:YES];
+            [self configureAudioSessionForCall];
         }
         else {
             NSLog(@"Failed to report incoming call successfully: %@.", [error localizedDescription]);
