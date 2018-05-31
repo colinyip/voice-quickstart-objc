@@ -13,7 +13,7 @@
 @import CallKit;
 @import TwilioVoice;
 
-static NSString *const kYourServerBaseURLString = @"https://6ef4b943.ngrok.io";
+static NSString *const kYourServerBaseURLString = @"https://b1540ee9.ngrok.io";
 // If your token server is written in PHP, kAccessTokenEndpoint needs .php extension at the end. For example : /accessToken.php
 static NSString *const kAccessTokenEndpoint = @"/accessToken";
 static NSString *const kIdentity = @"alice";
@@ -59,6 +59,19 @@ static NSString *const kTwimlParamTo = @"to";
     [self configureCallKit];
     [self loadMusic];
     NSLog(@"### viewDidLoad:Current audio session category %@", AVAudioSession.sharedInstance.category);
+}
+
+- (void)handleRouteChange:(NSNotification *)notification {
+    NSLog(@"Route change:");
+}
+
+- (void)setupAudioSessionNotificatio {
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(handleRouteChange:)
+                                               name:AVAudioSessionRouteChangeNotification
+                                             object:nil];
+
+
 }
 
 - (void)loadMusic {
@@ -132,8 +145,11 @@ static NSString *const kTwimlParamTo = @"to";
     } else {
         NSError* error = nil;
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+                                         withOptions:AVAudioSessionCategoryOptionMixWithOthers
                                                error:&error];
     }
+    NSError* error = nil;
+    [[AVAudioSession sharedInstance] setActive:YES error:&error];
 }
 
 - (IBAction)speakerSwitchToggled:(UISwitch *)sender {
@@ -372,10 +388,10 @@ withCompletionHandler:(void (^)(void))completion {
     NSLog(@"provider:didDeactivateAudioSession:");
     TwilioVoice.audioEnabled = NO;
     NSLog(@"### didDeactivateAudioSession:Current audio session category %@", AVAudioSession.sharedInstance.category);
-    NSError* error = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-                                     withOptions:AVAudioSessionCategoryOptionMixWithOthers
-                                           error:&error];
+//    NSError* error = nil;
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
+//                                     withOptions:AVAudioSessionCategoryOptionMixWithOthers
+//                                           error:&error];
 }
 
 - (void)provider:(CXProvider *)provider timedOutPerformingAction:(CXAction *)action {
@@ -417,12 +433,18 @@ withCompletionHandler:(void (^)(void))completion {
     NSAssert([self.callInvite.uuid isEqual:action.callUUID], @"We only support one Invite at a time.");
     NSLog(@"### ANSWER:Current audio session category %@", AVAudioSession.sharedInstance.category);
     TwilioVoice.audioEnabled = NO;
-    NSError* error = nil;
-    [self.player play];
 
+    NSError* error = nil;
+
+    if ([self.player isPlaying]) {
+        NSLog(@"### ANSWER:music is already playing");
+    }
+    self.player.currentTime = 0.0;
+    [self.player play];
     [self performAnswerVoiceCallWithUUID:action.callUUID completion:^(BOOL success) {
         [self.player stop];
         if (success) {
+            // This could be dangerous because of race condition https://forums.developer.apple.com/message/169511
             [TwilioVoice configureAudioSession];
             NSLog(@"### ANSWER_Before_fulfill:Current audio session category %@", AVAudioSession.sharedInstance.category);
             [action fulfill];
@@ -504,12 +526,14 @@ withCompletionHandler:(void (^)(void))completion {
 
             // RCP: Workaround per https://forums.developer.apple.com/message/169511
 //            [TwilioVoice configureAudioSession];
-//            [self toggleAudioRoute:YES];
+            NSError* error = nil;
             NSLog(@"### REPORTINCOMING_END:Current audio session category %@", AVAudioSession.sharedInstance.category);
             [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
                                              withOptions:AVAudioSessionCategoryOptionMixWithOthers
                                              error:&error];
-            NSLog(@"### REPORTINCOMING_AFTER_CATEGORY_SET:Current audio session category %@", AVAudioSession.sharedInstance.category);
+            
+            [[AVAudioSession sharedInstance] setActive:YES error:&error];
+            NSLog(@"### REPORTINCOMING_AFTER_CATEGORY_SET:Current audio session category %@, setActiveError: %@", AVAudioSession.sharedInstance.category, error);
         }
         else {
             NSLog(@"Failed to report incoming call successfully: %@.", [error localizedDescription]);
